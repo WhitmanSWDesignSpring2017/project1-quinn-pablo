@@ -14,6 +14,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.*;
+import java.util.*;
+
 
 /**
  * This JavaFX app lets the user play scales.
@@ -24,6 +27,8 @@ import javafx.scene.control.*;
 
 public class ScalePlayer extends Application {
 
+    private static int startingNote;
+    
     @Override
     public void start(Stage primaryStage) {
         
@@ -42,7 +47,18 @@ public class ScalePlayer extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Starting Note");
+                dialog.setHeaderText("Please enter a note (0-155)");
+
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()){
+                    System.out.println("Entered Note: " + result.toString());
+                    String stringResult = result.toString();
+                    stringResult = stringResult.substring(9, stringResult.length()-1);
+                    startingNote = Integer.parseInt(stringResult); 
+                    //playScale(startingNote);
+                }
             }
         });
 
