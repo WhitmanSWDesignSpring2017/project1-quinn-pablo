@@ -1,6 +1,7 @@
 /*
  * CS 300-A, 2017S
  */
+
 package scaleplayer;
 
 import javafx.application.Application;
@@ -110,6 +111,7 @@ public class ScalePlayer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    
     
     /**
      * Stops the current MidiPlayer sequence
