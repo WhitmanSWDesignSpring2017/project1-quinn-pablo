@@ -17,19 +17,21 @@ import javafx.scene.control.*;
 import javafx.*;
 import java.util.*;
 
-
 /**
  * This JavaFX app lets the user play scales.
  * @author Pablo Fernandez
  * @author Quinn Salkind
  * @since January 26, 2017
  */
-
 public class ScalePlayer extends Application {
 
     private static int startingNote;
     private MidiPlayer sequence = new MidiPlayer(2, 60);
 
+    /**
+     * Start: Handles the menu bar, buttons, exits, and events. 
+     * @param primaryStage 
+     */
     @Override
     public void start(Stage primaryStage) {
         
@@ -48,7 +50,11 @@ public class ScalePlayer extends Application {
         playBtn.setText("Play Scale");
         playBtn.setStyle("-fx-base: #b6e7c9;");
         playBtn.setOnAction(new EventHandler<ActionEvent>() {
-
+            
+            /**
+             * Handles the start and gets a note from the user, and starts the MidiPlayer using sequence. 
+             * @param event 
+             */
             @Override
             public void handle(ActionEvent event) {
                 TextInputDialog dialog = new TextInputDialog();
@@ -73,7 +79,11 @@ public class ScalePlayer extends Application {
         stopBtn.setText("Stop Playing");
         stopBtn.setStyle("-fx-base: #eda6a6;");
         stopBtn.setOnAction(new EventHandler<ActionEvent>() {
-
+            
+            /**
+             * Stops and Clears Scale on Stop Button trigger
+             * @param event 
+             */
             @Override
             public void handle(ActionEvent event) {
                 stopScale(sequence);
@@ -100,32 +110,30 @@ public class ScalePlayer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    
+    /**
+     * Stops the current MidiPlayer sequence
+     * @param sequence 
+     */
     public void stopScale(MidiPlayer sequence) {
         sequence.stop();
     }
     
+    /**
+     * Clears the current MidiPlayer sequence 
+     * @param sequence 
+     */
     public void clearScale(MidiPlayer sequence) {
         sequence.clear();
     }
-        
-    public void playScale(MidiPlayer sequence, int startingNote) {
-     /**
-     * 
-     * A convenience method for adding notes to the composition.
-     *
-     * @param pitch      an integer from 0 to 127 giving the pitch
-     * @param volume     an integer from 0 to 127 giving the volume
-     * @param startTick  tells when the note is to start playing (in ticks)
-     * @param duration   the number of ticks the note is to play
-     * @param channel    an integer from 0 to 15; each channel typically
-     *                      corresponds to a different instrument.  The default
-     *                      instrument for all channels is the grand piano.
-     * @param trackIndex an integer from 0 to 7 giving the track for the note
-     * pitch, volume, startTick, duration,
-                        channel, trackIndex
+    
+    /**
+     * Plays a scale from the MidiPlayer that starts at startingNote
+     * and continues for 8 pitches up, and 8 pitches down. 
+     * @param sequence
+     * @param startingNote 
      */
-     
+    public void playScale(MidiPlayer sequence, int startingNote) {     
         for(int i=1; i<9; i++)
         {
             sequence.addNote(startingNote, 100, i, 1,
@@ -144,6 +152,7 @@ public class ScalePlayer extends Application {
     }
     
     /**
+     * Starts the program
      * @param args the command line arguments
      */
     public static void main(String[] args) {
