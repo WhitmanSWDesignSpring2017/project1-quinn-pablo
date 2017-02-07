@@ -14,14 +14,13 @@ import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
-
 /**
  * This JavaFX app lets the user play scales.
- * @author Janet Davis 
- * @author Put your name here!
- * @author Put your partner's name here!
+ * @author Pablo Fernandez
+ * @author Quinn Salkind
  * @since January 26, 2017
  */
+
 public class ScalePlayer extends Application {
     
     @Override
