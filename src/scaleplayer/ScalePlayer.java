@@ -14,6 +14,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
+import javafx.*;
+import java.util.*;
+
 
 /**
  * This JavaFX app lets the user play scales.
@@ -24,9 +27,13 @@ import javafx.scene.control.*;
 
 public class ScalePlayer extends Application {
 
+    private static int startingNote;
+    private MidiPlayer sequence = new MidiPlayer(2, 60);
+
     @Override
     public void start(Stage primaryStage) {
         
+        //create menu bar
         MenuBar menuBar = new MenuBar();
         menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
         Menu file = new Menu("File");
@@ -35,6 +42,7 @@ public class ScalePlayer extends Application {
         file.getItems().add(exitMenuItem);
         exitMenuItem.setOnAction(actionEvent -> Platform.exit());
 
+        //play button
         Button playBtn = new Button();
         playBtn.setText("Play Scale");
         playBtn.setStyle("-fx-base: #b6e7c9;");
@@ -42,10 +50,24 @@ public class ScalePlayer extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Starting Note");
+                dialog.setHeaderText("Please enter a note (0-155)");
+
+                //get result, parse it into an int in a roundabout way, then play scale once its had
+                Optional<String> result = dialog.showAndWait();
+                if (result.isPresent()){
+                    String stringResult = result.toString();
+                    stringResult = stringResult.substring(9, stringResult.length()-1);
+                    startingNote = Integer.parseInt(stringResult); 
+                    stopScale(sequence);
+                    clearScale(sequence);
+                    playScale(sequence, startingNote);
+                }
             }
         });
 
+        //stop button
         Button stopBtn = new Button();
         stopBtn.setText("Stop Playing");
         stopBtn.setStyle("-fx-base: #eda6a6;");
@@ -53,16 +75,19 @@ public class ScalePlayer extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                stopScale(sequence);
+                clearScale(sequence);
             }
         });
         
+        //create layout
         HBox hbox = new HBox();
         hbox.getChildren().addAll(playBtn, stopBtn);
         hbox.setSpacing(10);
         hbox.setCenterShape(true);
         hbox.setAlignment(Pos.CENTER);
         
+        //Overhead for showing screen
         BorderPane root = new BorderPane();
         
         root.setTop(menuBar);
@@ -75,9 +100,15 @@ public class ScalePlayer extends Application {
         primaryStage.show();
     }
 
-    public void playScale(int startingNote) {
-            
-        MidiPlayer sequence = new MidiPlayer(2, 60);
+    public void stopScale(MidiPlayer sequence) {
+        sequence.stop();
+    }
+    
+    public void clearScale(MidiPlayer sequence) {
+        sequence.clear();
+    }
+        
+    public void playScale(MidiPlayer sequence, int startingNote) {
      /**
      * 
      * A convenience method for adding notes to the composition.
@@ -93,40 +124,22 @@ public class ScalePlayer extends Application {
      * pitch, volume, startTick, duration,
                         channel, trackIndex
      */
-        sequence.addNote(50, 100, 1, 1,
+     
+        for(int i=1; i<9; i++)
+        {
+            sequence.addNote(startingNote, 100, i, 1,
                         1, 1);
-        sequence.addNote(51, 100, 2, 1,
+            startingNote = startingNote + 1;
+        }
+
+        startingNote = startingNote - 1;
+        for(int i=10; i<18; i++)
+        {
+            sequence.addNote(startingNote, 100, i, 1,
                         1, 1);
-        sequence.addNote(52, 100, 3, 1,
-                        1, 1);
-        sequence.addNote(53, 100, 4, 1,
-                        1, 1);
-        sequence.addNote(54, 100, 5, 1,
-                        1, 1);
-        sequence.addNote(55, 100, 6, 1,
-                        1, 1);
-        sequence.addNote(56, 100, 7, 1,
-                        1, 1);        
-        sequence.addNote(57, 100, 8, 1,
-                        1, 1);
-        
-        sequence.addNote(57, 100, 10, 1,
-                        1, 1);
-        sequence.addNote(56, 100, 11, 1,
-                        1, 1);
-        sequence.addNote(55, 100, 12, 1,
-                        1, 1);
-        sequence.addNote(54, 100, 13, 1,
-                        1, 1);
-        sequence.addNote(53, 100, 14, 1,
-                        1, 1);
-        sequence.addNote(52, 100, 15, 1,
-                        1, 1);
-        sequence.addNote(51, 100, 16, 1,
-                        1, 1);        
-        sequence.addNote(50, 100, 17, 1,
-                        1, 1);
-        sequence.play();
+            startingNote = startingNote - 1;
+        }
+            sequence.play();
     }
     
     /**
