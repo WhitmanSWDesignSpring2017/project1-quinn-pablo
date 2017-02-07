@@ -72,21 +72,17 @@ public class ScalePlayer extends Application {
                 System.out.println("Hello World!");
             }
         });
-
+        
         HBox hbox = new HBox();
         hbox.getChildren().addAll(playBtn, stopBtn);
         hbox.setSpacing(10);
         hbox.setCenterShape(true);
         hbox.setAlignment(Pos.CENTER);
         
-
-
         BorderPane root = new BorderPane();
         
         root.setTop(menuBar);
         root.setCenter(hbox);
-
-
 
         Scene scene = new Scene(root, 300, 250);
 
@@ -95,6 +91,60 @@ public class ScalePlayer extends Application {
         primaryStage.show();
     }
 
+    public void playScale(int startingNote) {
+            
+        MidiPlayer sequence = new MidiPlayer(2, 60);
+     /**
+     * 
+     * A convenience method for adding notes to the composition.
+     *
+     * @param pitch      an integer from 0 to 127 giving the pitch
+     * @param volume     an integer from 0 to 127 giving the volume
+     * @param startTick  tells when the note is to start playing (in ticks)
+     * @param duration   the number of ticks the note is to play
+     * @param channel    an integer from 0 to 15; each channel typically
+     *                      corresponds to a different instrument.  The default
+     *                      instrument for all channels is the grand piano.
+     * @param trackIndex an integer from 0 to 7 giving the track for the note
+     * pitch, volume, startTick, duration,
+                        channel, trackIndex
+     */
+        sequence.addNote(50, 100, 1, 1,
+                        1, 1);
+        sequence.addNote(51, 100, 2, 1,
+                        1, 1);
+        sequence.addNote(52, 100, 3, 1,
+                        1, 1);
+        sequence.addNote(53, 100, 4, 1,
+                        1, 1);
+        sequence.addNote(54, 100, 5, 1,
+                        1, 1);
+        sequence.addNote(55, 100, 6, 1,
+                        1, 1);
+        sequence.addNote(56, 100, 7, 1,
+                        1, 1);        
+        sequence.addNote(57, 100, 8, 1,
+                        1, 1);
+        
+        sequence.addNote(57, 100, 10, 1,
+                        1, 1);
+        sequence.addNote(56, 100, 11, 1,
+                        1, 1);
+        sequence.addNote(55, 100, 12, 1,
+                        1, 1);
+        sequence.addNote(54, 100, 13, 1,
+                        1, 1);
+        sequence.addNote(53, 100, 14, 1,
+                        1, 1);
+        sequence.addNote(52, 100, 15, 1,
+                        1, 1);
+        sequence.addNote(51, 100, 16, 1,
+                        1, 1);        
+        sequence.addNote(50, 100, 17, 1,
+                        1, 1);
+        sequence.play();
+    }
+    
     /**
      * @param args the command line arguments
      */
