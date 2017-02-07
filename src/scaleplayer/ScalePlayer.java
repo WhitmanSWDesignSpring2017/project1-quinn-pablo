@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -22,10 +23,10 @@ import javafx.scene.control.*;
  */
 
 public class ScalePlayer extends Application {
-    
+    //test
     @Override
     public void start(Stage primaryStage) {
-        //
+        
         MenuBar menuBar = new MenuBar();
         menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
         Menu file = new Menu("File");
@@ -59,11 +60,15 @@ public class ScalePlayer extends Application {
         HBox hbox = new HBox();
         hbox.getChildren().addAll(playBtn, stopBtn);
         hbox.setSpacing(10);
+        hbox.setCenterShape(true);
+        hbox.setAlignment(Pos.CENTER);
+        
 
 
         BorderPane root = new BorderPane();
-        root.setCenter(hbox);
+        
         root.setTop(menuBar);
+        root.setCenter(hbox);
 
 
 
