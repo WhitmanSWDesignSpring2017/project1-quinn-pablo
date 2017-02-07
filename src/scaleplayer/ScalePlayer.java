@@ -40,8 +40,9 @@ public class ScalePlayer extends Application {
         menuBar.getMenus().add(file);
         MenuItem exitMenuItem = new MenuItem("Exit");
         file.getItems().add(exitMenuItem);
-        exitMenuItem.setOnAction(actionEvent -> Platform.exit());
-
+        exitMenuItem.setOnAction(actionEvent -> System.exit(0));
+        primaryStage.setOnCloseRequest(e -> System.exit(0));
+                        
         //play button
         Button playBtn = new Button();
         playBtn.setText("Play Scale");
@@ -52,7 +53,7 @@ public class ScalePlayer extends Application {
             public void handle(ActionEvent event) {
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Starting Note");
-                dialog.setHeaderText("Please enter a note (0-155)");
+                dialog.setHeaderText("Please enter a note (0-115)");
 
                 //get result, parse it into an int in a roundabout way, then play scale once its had
                 Optional<String> result = dialog.showAndWait();
