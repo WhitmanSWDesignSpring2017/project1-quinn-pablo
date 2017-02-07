@@ -23,7 +23,7 @@ import javafx.scene.control.*;
  */
 
 public class ScalePlayer extends Application {
-    //test
+
     @Override
     public void start(Stage primaryStage) {
         
