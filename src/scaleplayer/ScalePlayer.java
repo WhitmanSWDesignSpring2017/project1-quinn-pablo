@@ -41,6 +41,7 @@ public class ScalePlayer extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->System.exit(0));
         } catch (Exception ex) {
+            
         }
     }    
     
