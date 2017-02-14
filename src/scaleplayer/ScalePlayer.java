@@ -4,6 +4,7 @@
 
 package scaleplayer;
 
+import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -12,7 +13,6 @@ import javafx.*;
 import javafx.fxml.FXML;
 
 import javafx.application.Application;
-import static javafx.application.ConditionalFeature.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -63,11 +63,27 @@ public class ScalePlayer extends Application {
     @FXML
     void handleStartClick(ActionEvent event) {
 
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Starting Note");
+        dialog.setHeaderText("Please enter a note (0-115)");
+
+        //get result, parse it into an int in a roundabout way, then play scale once its had
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String stringResult = result.toString();
+            stringResult = stringResult.substring(9, stringResult.length()-1);
+            startingNote = Integer.parseInt(stringResult); 
+            stopScale(sequence);
+            clearScale(sequence);
+            playScale(sequence, startingNote);
+        }
+
     }
 
     @FXML
     void handleStopClick(ActionEvent event) {
-       
+       stopScale(sequence);
+       clearScale(sequence);
     }
     
     /**
