@@ -29,8 +29,8 @@
          <center>
             <HBox alignment="CENTER" prefHeight="371.0" prefWidth="358.0" style="-fx-spacing: 20;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStartClick" pickOnBounds="false" style="-fx-background-color: lightgreen; -fx-border-color: green;" text="Start Playing" />
-                  <Button fx:id="closeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStopClick" style="-fx-background-color: pink; -fx-border-color: red;" text="Stop Scale" />
+                  <Button id = "startButton" fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStartClick" pickOnBounds="false" text="Start Playing" />
+                  <Button id = "closeButton" fx:id="closeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStopClick" text="Stop Scale" />
                </children>
             </HBox>
          </center>
