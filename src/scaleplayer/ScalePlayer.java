@@ -111,8 +111,7 @@ public class ScalePlayer extends Application {
      * @param sequence
      * @param startingNote 
      */
-     //TODO: Why public?
-    public void playScale(MidiPlayer sequence, int startingNote) {     
+    private void playScale(MidiPlayer sequence, int startingNote) {     
         //TODO: Fix this so it's a Do-Re-Mi scale
         //https://en.wikipedia.org/wiki/Solfège#Major
         //TODO: Replace magic numbers with constants
