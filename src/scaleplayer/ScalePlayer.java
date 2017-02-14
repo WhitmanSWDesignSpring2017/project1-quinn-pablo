@@ -18,6 +18,13 @@ import javafx.scene.control.*;
 import javafx.*;
 import java.util.*;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+
 /**
  * This JavaFX app lets the user play scales.
  * @author Pablo Fernandez
@@ -31,101 +38,19 @@ public class ScalePlayer extends Application {
     //TODO: Could this field be static, final?
     private MidiPlayer sequence = new MidiPlayer(2, 60);
 
-    /**
-     * Start: Handles the menu bar, buttons, exits, and events. 
-     * @param primaryStage //TODO: What is it for?
-     */
     @Override
-    public void start(Stage primaryStage) {
-        
-        //create menu bar
-        MenuBar menuBar = new MenuBar();
-        //TODO: Is the next line necessary?
-        menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
-        Menu file = new Menu("File");
-        menuBar.getMenus().add(file);
-        MenuItem exitMenuItem = new MenuItem("Exit");
-        file.getItems().add(exitMenuItem);
-        exitMenuItem.setOnAction(actionEvent -> System.exit(0));
-        primaryStage.setOnCloseRequest(e -> System.exit(0));
-        //TODO: Confusing that the above line is here, 
-        //as it's not part of creating the menu bar
-                        
-        //play button
-        Button playBtn = new Button();
-        playBtn.setText("Play Scale");
-        //NOTE: The below is ugly, but you'll fix it with CSS
-        playBtn.setStyle("-fx-base: #b6e7c9;");
-        //TODO: Is an anonymous inner class necessary?
-        playBtn.setOnAction(new EventHandler<ActionEvent>() {
-            //TODO: This is way too much code to nest inside another method.
-            /**
-             * Handles the start and gets a note from the user, and starts the MidiPlayer using sequence. 
-             * @param event 
-             */
-            @Override
-            public void handle(ActionEvent event) {
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Starting Note");
-                dialog.setHeaderText("Please enter a note (0-115)");
-                //TODO: Set a default text input value
-
-                //get result, parse it into an int in a roundabout way, then play scale once its had
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()){
-                    //TODO: Why not just set startingNote to Integer.parseInt(result)?
-                    String stringResult = result.toString();
-                    stringResult = stringResult.substring(9, stringResult.length()-1);
-                    startingNote = Integer.parseInt(stringResult); 
-                    stopScale(sequence);
-                    clearScale(sequence);
-                    playScale(sequence, startingNote);
-                }
-            }
-        });
-
-        //stop button
-        //TODO: See comments above
-        Button stopBtn = new Button();
-        stopBtn.setText("Stop Playing");
-        stopBtn.setStyle("-fx-base: #eda6a6;");
-        //TODO: Is an anonymous inner class necessary?
-        stopBtn.setOnAction(new EventHandler<ActionEvent>() {
-            
-            /**
-             * Stops and Clears Scale on Stop Button trigger
-             * @param event 
-             */
-            @Override
-            public void handle(ActionEvent event) {
-                stopScale(sequence);
-                clearScale(sequence);
-            }
-        });
-        
-        //create layout
-        HBox hbox = new HBox();
-        hbox.getChildren().addAll(playBtn, stopBtn);
-        hbox.setSpacing(10);
-        hbox.setCenterShape(true);
-        hbox.setAlignment(Pos.CENTER);
-        
-        //Overhead for showing screen
-        //NOTE: Good choice
-        BorderPane root = new BorderPane();
-
-        root.setTop(menuBar);
-        root.setCenter(hbox);
-
-        Scene scene = new Scene(root, 300, 250);
-
-        primaryStage.setTitle("Scale Player");
+    public void start(Stage primaryStage) throws Exception {  
+    try {
+        AnchorPane page = FXMLLoader.load(ScalePlayer.class.getResource("ScalePlayer.fxml"));
+        Scene scene = new Scene(page);
+        primaryStage.setTitle("ScalePlayer");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        //NOTE: This method is much too long.
-    }
-    
+        primaryStage.setOnCloseRequest(e->System.exit(0));
+        
+        } catch (Exception ex) {
+        }
+    }       
     
     /**
      * Stops the current MidiPlayer sequence
