@@ -4,24 +4,17 @@
 
 package scaleplayer;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.*;
-import java.util.*;
+import javafx.fxml.FXML;
 
 import javafx.application.Application;
+import static javafx.application.ConditionalFeature.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -47,10 +40,34 @@ public class ScalePlayer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->System.exit(0));
-        
         } catch (Exception ex) {
         }
-    }       
+    }    
+    
+
+    @FXML
+    private MenuItem closeItem;
+
+    @FXML
+    private Button startButton;
+
+    @FXML
+    private Button closeButton;
+
+    @FXML
+    void handleCloseClick(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void handleStartClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleStopClick(ActionEvent event) {
+       
+    }
     
     /**
      * Stops the current MidiPlayer sequence
