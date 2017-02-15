@@ -9,18 +9,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="400.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scaleplayer.ScalePlayer">
     <stylesheets>
         <URL value="@scaleplayer.fxml.css" />
     </stylesheets>
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0">
+      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0"    >
          <top>
             <MenuBar prefHeight="29.0" prefWidth="138.0" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem fx:id="closeItem" mnemonicParsing="false" onAction="#handleCloseClick" text="Close" />
                   </items>
                 </Menu>
               </menus>
@@ -29,8 +29,8 @@
          <center>
             <HBox alignment="CENTER" prefHeight="371.0" prefWidth="358.0" style="-fx-spacing: 20;" BorderPane.alignment="CENTER">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" pickOnBounds="false" style="-fx-background-color: lightgreen; -fx-border-color: green;" text="Start Playing" />
-                  <Button alignment="CENTER" mnemonicParsing="false" style="-fx-background-color: pink; -fx-border-color: red;" text="Play Scale" />
+                  <Button id = "startButton" fx:id="startButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStartClick" pickOnBounds="false" text="Start Playing" />
+                  <Button id = "closeButton" fx:id="closeButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleStopClick" text="Stop Scale" />
                </children>
             </HBox>
          </center>

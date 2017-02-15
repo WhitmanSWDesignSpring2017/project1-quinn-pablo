@@ -1,18 +1,11 @@
 # project1-quinn-pablo
 project1-quinn-pablo created by GitHub Classroom
 
-1) Our design creates a layout with two distinct buttons each with their own event handles. The start button shows a dialogue box that asks for an input. That input is then chopped and parsed into an integer, such that if the user entered 0-115 sets it at the starting note. Then it plays the scale. If the stop button is pressed at any time methods are called utilize built in methods to stop and clear the sequence of notes that had been created (and is currently playing). The scale is played using 2 for loops. One up, one down.
+1)	Our start method now instead of containing the logic and construction of the entire program, now really only reads in the FXML file, which it uses to build the scene then show it. There are three separate methods, one for the start button, stop button, and close button, as well as two additional helper functions to allow us to easily play the scale. We changed several functions from public to private, as their original designation was unnecessary. We also fixed the core functionality so that it actually plays a scale, rather then the simple ladder we had before.
 
+2)	This way the entire logic and construction of the program is not contained in the ‘start’ method. It is broken into smaller bits to make the program more readable/maintainable.
 
-2) The dialogue box and getting the user input all happen in the method to handle when the play button is pressed, since these things will only ever occur in that scenario. We didn’t feel the need to create helper functions for these.
+3)	Speaking to a few other groups it appeared the only option was to use the dialogue window the same way we did in the first iteration of this project. This means there is still a chunk of code constructing a window in our controller (under the method for the start button being pressed). Maybe this can be done with another FXML file?
 
-We did create helper functions to easily use the Midi class. These stop, clear, or play the scale. We thought especially for playing it would be more eloquent and reusable to be able to play a scale based off of just a given number, hiding the ugly for loop from the rest of the code. 
+4)	We worked together on using scene builder to reconstruct the window, as well as figure out how to link the FXML file to the controller class. Quinn worked a little more on populating the ScalePlayer class’s new methods, while Pablo worked on fixing mistakes from our last project.
 
-
-3) Hiding away the midi class interactions makes the control flow much more readable and understandable.
-
-
-4) The part where we handle the dialogue box is somewhat ineloquent. Maybe it could all be contained in a function called promptForNote() or something like that, but it was a struggle even to get to this point.
-
-
-5) We worked side by side. Quinn handling most of the layout and Pablo handling most of the interaction with the Midi class. It worked well since we both discussed issues we were facing with each other, so we both got to understand what the other was working on.

@@ -4,24 +4,17 @@
 
 package scaleplayer;
 
-import javafx.application.Application;
-import javafx.application.Platform;
+import java.util.Optional;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.*;
-import java.util.*;
+import javafx.fxml.FXML;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -33,10 +26,8 @@ import javafx.stage.Stage;
  */
 public class ScalePlayer extends Application {
 
-    //TODO: Why does this field exist? 
-    private static int startingNote;
-    //TODO: Could this field be static, final?
-    private MidiPlayer sequence = new MidiPlayer(2, 60);
+    private static int startingNote; // Needed for method calls
+    private static MidiPlayer sequence = new MidiPlayer(2, 60);
 
     @Override
     public void start(Stage primaryStage) throws Exception {  
@@ -47,27 +38,67 @@ public class ScalePlayer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->System.exit(0));
-        
         } catch (Exception ex) {
+            
         }
-    }       
+    }    
+
+    @FXML
+    private MenuItem closeItem;
+
+    @FXML
+    private Button startButton;
+
+    @FXML
+    private Button closeButton;
+
+    @FXML
+    void handleCloseClick(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void handleStartClick(ActionEvent event) {
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Starting Note");
+        dialog.setHeaderText("Please enter a note (0-115)");
+
+        //get result, parse it into an int in a roundabout way, then play scale once its had
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            String stringResult = result.toString();
+            stringResult = stringResult.substring(9, stringResult.length()-1);
+            startingNote = Integer.parseInt(stringResult); 
+            stopScale(sequence);
+            clearScale(sequence);
+            playScale(sequence, startingNote);
+        }
+    }
+
+    @FXML
+    void handleStopClick(ActionEvent event) {
+       stopScale(sequence);
+       clearScale(sequence);
+    }
     
     /**
      * Stops the current MidiPlayer sequence
-     * @param sequence //TODO: What is it?
+     * @param sequence 
+     * Stops the scale, method is built in case functionality requirements
+     * should grow in future versions
      */
-     //TODO: Why is this public?
-    public void stopScale(MidiPlayer sequence) {
-        //TODO: Why do you need to define a one line method?
+    private void stopScale(MidiPlayer sequence) {
         sequence.stop();
     }
     
     /**
      * Clears the current MidiPlayer sequence 
      * @param sequence 
+     * Clears the scale, method is built in case functionality requirements
+     * should grow in future versions. 
      */
     public void clearScale(MidiPlayer sequence) {
-        //TODO: See above
         sequence.clear();
     }
     
@@ -77,29 +108,21 @@ public class ScalePlayer extends Application {
      * @param sequence
      * @param startingNote 
      */
-     //TODO: Why public?
-    public void playScale(MidiPlayer sequence, int startingNote) {     
-        //TODO: Fix this so it's a Do-Re-Mi scale
-        //https://en.wikipedia.org/wiki/Solfège#Major
-        //TODO: Replace magic numbers with constants
-        //TODO: Fix indentation
-        for(int i=1; i<9; i++)
-        {
+    private void playScale(MidiPlayer sequence, int startingNote) {     
+        int[] scale = {0,2,2,1,2,2,2,1,0,0,1,2,2,2,1,2,2};
+        for(int i=1; i<9; i++)  {                    
+            startingNote = startingNote + scale[i-1];
             sequence.addNote(startingNote, 100, i, 1,
                         1, 1);
-            startingNote = startingNote + 1;
         }
-
-        startingNote = startingNote - 1;
-        for(int i=10; i<18; i++)
-        {
+        for(int i=10; i<18; i++) {
+            startingNote = startingNote - scale[i-1];
             sequence.addNote(startingNote, 100, i, 1,
                         1, 1);
-            startingNote = startingNote - 1;
         }
-            sequence.play();
+        sequence.play();
     }
-    
+  
     /**
      * Starts the program
      * @param args the command line arguments

@@ -1,7 +1,11 @@
 /*
  * Empty Stylesheet file.
  */
-
-.mainFxmlClass {
-
+#closeButton {
+    -fx-background-color: pink; 
+    -fx-border-color: red;
+}
+#startButton {
+    -fx-background-color: lightgreen; 
+    -fx-border-color: green;
 }
