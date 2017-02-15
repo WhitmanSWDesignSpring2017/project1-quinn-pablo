@@ -1,5 +1,5 @@
-# project1-quinn-pablo
-project1-quinn-pablo created by GitHub Classroom
+# project2-quinn-pablo
+project2-quinn-pablo created by GitHub Classroom
 
 1)	Our start method now instead of containing the logic and construction of the entire program, now really only reads in the FXML file, which it uses to build the scene then show it. There are three separate methods, one for the start button, stop button, and close button, as well as two additional helper functions to allow us to easily play the scale. We changed several functions from public to private, as their original designation was unnecessary. We also fixed the core functionality so that it actually plays a scale, rather then the simple ladder we had before.
 
