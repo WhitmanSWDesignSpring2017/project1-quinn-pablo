@@ -1,6 +1,7 @@
 /*
- * Button styling
+ * Our CSS Button styling 
  */
+
 #closeButton {
     -fx-background-color: pink; 
     -fx-border-color: red;
