@@ -26,10 +26,8 @@ import javafx.stage.Stage;
  */
 public class ScalePlayer extends Application {
 
-    //TODO: Why does this field exist? 
-    private static int startingNote;
-    //TODO: Could this field be static, final?
-    private MidiPlayer sequence = new MidiPlayer(2, 60);
+    private static int startingNote; // Needed for method calls
+    private static MidiPlayer sequence = new MidiPlayer(2, 60);
 
     @Override
     public void start(Stage primaryStage) throws Exception {  
@@ -44,7 +42,6 @@ public class ScalePlayer extends Application {
             
         }
     }    
-    
 
     @FXML
     private MenuItem closeItem;
@@ -77,7 +74,6 @@ public class ScalePlayer extends Application {
             clearScale(sequence);
             playScale(sequence, startingNote);
         }
-
     }
 
     @FXML
@@ -88,20 +84,21 @@ public class ScalePlayer extends Application {
     
     /**
      * Stops the current MidiPlayer sequence
-     * @param sequence //TODO: What is it?
+     * @param sequence 
+     * Stops the scale, method is built in case functionality requirements
+     * should grow in future versions
      */
-     //TODO: Why is this public?
-    public void stopScale(MidiPlayer sequence) {
-        //TODO: Why do you need to define a one line method?
+    private void stopScale(MidiPlayer sequence) {
         sequence.stop();
     }
     
     /**
      * Clears the current MidiPlayer sequence 
      * @param sequence 
+     * Clears the scale, method is built in case functionality requirements
+     * should grow in future versions. 
      */
     public void clearScale(MidiPlayer sequence) {
-        //TODO: See above
         sequence.clear();
     }
     
@@ -112,27 +109,20 @@ public class ScalePlayer extends Application {
      * @param startingNote 
      */
     private void playScale(MidiPlayer sequence, int startingNote) {     
-        //TODO: Fix this so it's a Do-Re-Mi scale
-        //https://en.wikipedia.org/wiki/Solfège#Major
-        //TODO: Replace magic numbers with constants
-        //TODO: Fix indentation
-        for(int i=1; i<9; i++)
-        {
+        int[] scale = {0,2,2,1,2,2,2,1,0,0,1,2,2,2,1,2,2};
+        for(int i=1; i<9; i++)  {                    
+            startingNote = startingNote + scale[i-1];
             sequence.addNote(startingNote, 100, i, 1,
                         1, 1);
-            startingNote = startingNote + 1;
         }
-
-        startingNote = startingNote - 1;
-        for(int i=10; i<18; i++)
-        {
+        for(int i=10; i<18; i++) {
+            startingNote = startingNote - scale[i-1];
             sequence.addNote(startingNote, 100, i, 1,
                         1, 1);
-            startingNote = startingNote - 1;
         }
-            sequence.play();
+        sequence.play();
     }
-    
+  
     /**
      * Starts the program
      * @param args the command line arguments
