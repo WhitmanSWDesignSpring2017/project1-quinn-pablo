@@ -26,9 +26,10 @@ import javafx.stage.Stage;
  */
 public class ScalePlayer extends Application {
 
-    private static int startingNote; // Needed for method calls
+    private static int startingNote; // Needed for method calls //TODO: What? Clarify.
     private static MidiPlayer sequence = new MidiPlayer(2, 60);
 
+    //TODO: Write javadoc for all methods
     @Override
     public void start(Stage primaryStage) throws Exception {  
     try {
@@ -39,10 +40,12 @@ public class ScalePlayer extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest(e->System.exit(0));
         } catch (Exception ex) {
-            
+          //TODO: Why do you catch this exception instead of allowing it to be thrown?  
         }
     }    
 
+    //TODO: Why is there a method in the middle ofthe field declarations?
+    //TODO: Delete unused fields
     @FXML
     private MenuItem closeItem;
 
@@ -52,6 +55,7 @@ public class ScalePlayer extends Application {
     @FXML
     private Button closeButton;
 
+    //TODO: Choose private or public
     @FXML
     void handleCloseClick(ActionEvent event) {
         System.exit(0);
@@ -65,9 +69,11 @@ public class ScalePlayer extends Application {
         dialog.setHeaderText("Please enter a note (0-115)");
 
         //get result, parse it into an int in a roundabout way, then play scale once its had
+        //TODO:                            ^ What? Why?
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             String stringResult = result.toString();
+            //TODO: What is the next line for?
             stringResult = stringResult.substring(9, stringResult.length()-1);
             startingNote = Integer.parseInt(stringResult); 
             stopScale(sequence);
@@ -84,9 +90,9 @@ public class ScalePlayer extends Application {
     
     /**
      * Stops the current MidiPlayer sequence
-     * @param sequence 
+     * @param sequence //TODO: Document all parameters
      * Stops the scale, method is built in case functionality requirements
-     * should grow in future versions
+     * should grow in future versions //TODO: I don't understand why this is important.
      */
     private void stopScale(MidiPlayer sequence) {
         sequence.stop();
@@ -98,6 +104,7 @@ public class ScalePlayer extends Application {
      * Clears the scale, method is built in case functionality requirements
      * should grow in future versions. 
      */
+     //TODO: Why is previous method private and this one is public?
     public void clearScale(MidiPlayer sequence) {
         sequence.clear();
     }
@@ -109,6 +116,7 @@ public class ScalePlayer extends Application {
      * @param startingNote 
      */
     private void playScale(MidiPlayer sequence, int startingNote) {     
+        //NOTE: Much better
         int[] scale = {0,2,2,1,2,2,2,1,0,0,1,2,2,2,1,2,2};
         for(int i=1; i<9; i++)  {                    
             startingNote = startingNote + scale[i-1];
